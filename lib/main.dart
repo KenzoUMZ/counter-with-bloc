@@ -1,4 +1,4 @@
-import 'package:counter_with_bloc/cubit/home_cubit.dart';
+import 'package:counter_with_bloc/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,27 +15,5 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: HomePage(),
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late HomeCubit _cubit;
-
-  @override
-  void initState() {
-    _cubit = HomeCubit();
-    super.initState();
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
