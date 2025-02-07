@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-class HomeState extends Equatable {
+class CounterState extends Equatable {
   final int? counter;
   
-  const HomeState({
+  const CounterState({
     this.counter = 0,
   });
 
-  HomeState copyWith({
+  CounterState copyWith({
     int? counter,
   }) {
-    return HomeState(
+    return CounterState(
       counter: counter,
     );
   }

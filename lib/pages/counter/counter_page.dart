@@ -1,22 +1,24 @@
-import 'package:counter_with_bloc/cubit/home_cubit.dart';
-import 'package:counter_with_bloc/cubit/home_state.dart';
-import 'package:counter_with_bloc/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class ResponsiveHome extends StatefulWidget{
-  const ResponsiveHome({super.key});
+import '../../utils/responsive.dart';
+import 'cubit/counter_cubit.dart';
+import 'cubit/counter_state.dart';
+
+class CounterPage extends StatefulWidget {
+  const CounterPage({super.key});
 
   @override
-  State<ResponsiveHome> createState() => _ResponsiveHome ();
+  State<CounterPage> createState() => _CounterPage();
 }
 
-class _ResponsiveHome extends State<ResponsiveHome>{
-  late HomeCubit _cubit;
+class _CounterPage extends State<CounterPage> {
+  late CounterCubit _cubit;
+
   @override
-  void initState(){
-    _cubit = HomeCubit();
+  void initState() {
+    _cubit = CounterCubit();
     super.initState();
   }
 
@@ -30,14 +32,12 @@ class _ResponsiveHome extends State<ResponsiveHome>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 100),
-            BlocBuilder<HomeCubit, HomeState>(
+            BlocBuilder<CounterCubit, CounterState>(
               bloc: _cubit,
               builder: (context, state) {
                 return Text(
                   state.counter.toString(),
-                  style: const TextStyle(fontSize: 24, 
-                  color: Colors.white
-                  ), 
+                  style: const TextStyle(fontSize: 24, color: Colors.white),
                 );
               },
             ),
@@ -45,12 +45,12 @@ class _ResponsiveHome extends State<ResponsiveHome>{
             Flex(
               crossAxisAlignment: CrossAxisAlignment.start,
               direction: Responsive.isMobile(context)
-                  ?Axis.vertical
-                  :Axis.horizontal,
+                  ? Axis.vertical
+                  : Axis.horizontal,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                  onPressed: (){
+                  onPressed: () {
                     _cubit.addCounter(7);
                   },
                   child: const Text(
