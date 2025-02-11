@@ -10,6 +10,14 @@ Future<List<Photo>> fetchPhotos() async {
   }).toList();
 }
 
+Future<Photo> fetchSinglePhoto({required int id}) async{
+  final dio = Dio();
+
+  Response response = await dio.get('https://jsonplaceholder.typicode.com/photos/$id');
+
+  return Photo.fromJson(response.data);
+}
+
 class Photo {
   final int albumId;
   final int id;

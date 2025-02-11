@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import 'album_details.dart';
 import 'dio/repository_dio.dart';
 
 class AlbumPage extends StatefulWidget {
@@ -23,9 +24,18 @@ class _AlbumPageState extends State<AlbumPage> {
               itemCount: data?.length ?? 0,
               separatorBuilder: (context, index) => Gap(10),
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(data![index].title),
-                  subtitle: Text(data[index].url),
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AlbumDetails(photId: data[index].id,)),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(data![index].title),
+                    subtitle: Text(data[index].url),
+                  ),
                 );
               },
             );
