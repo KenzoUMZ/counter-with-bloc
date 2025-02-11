@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import 'album_details.dart';
-import '../../data/dio/repository_dio.dart';
+import '../album_details/album_details_page.dart';
+import 'cubit/album_cubit.dart';
+import 'cubit/album_state.dart';
 
 class AlbumPage extends StatefulWidget {
   const AlbumPage({super.key});
@@ -12,95 +14,50 @@ class AlbumPage extends StatefulWidget {
 }
 
 class _AlbumPageState extends State<AlbumPage> {
+  late AlbumCubit _cubit;
+
+  @override
+  void initState() {
+    _cubit = AlbumCubit()..getPhotos();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<Photo>>(
-        future: fetchPhotos(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            var data = snapshot.data;
-            return ListView.separated(
-              itemCount: data?.length ?? 0,
-              separatorBuilder: (context, index) => Gap(10),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AlbumDetails(photId: data[index].id,)),
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(data![index].title),
-                    subtitle: Text(data[index].url),
-                  ),
-                );
-              },
-            );
-          } else {
+      body: BlocBuilder<AlbumCubit, AlbumState>(
+        bloc: _cubit,
+        builder: (_, state) {
+          if (state.photos.isEmpty && state.isLoading == false) {
+            return Text('Fotos não encontradas');
+          }
+          if (state.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+          return ListView.separated(
+            itemCount: state.photos.length,
+            separatorBuilder: (_, index) => const Gap(10),
+            itemBuilder: (_, index) {
+              return ListTile(
+                title: Text(state.photos[index].title),
+                subtitle: Text(state.photos[index].url),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AlbumDetails(
+                        photoId: state.photos[index].id,
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          );
         },
       ),
     );
   }
 }
-
-// class AlbumPage extends StatefulWidget {
-//   const AlbumPage({super.key});
-
-//   @override
-//   State<AlbumPage> createState() => _AlbumPage();
-// }
-
-// class _AlbumPage extends State<AlbumPage> {
-//   late Future<List<Photo>> futurePhotos = fetchPhotos();
-
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: FutureBuilder<List<Photo>>(
-//           future: futurePhotos,
-//           builder: (context, snapshot) {
-//             if (snapshot.hasError) {
-//               return const Center(
-//                 child: Text('Anerror has ocurred!'),
-//               );
-//             } else if (snapshot.hasData) {
-//               return PhotoList(photos: snapshot.data!);
-//             } else {
-//               return const Center(
-//                 child: CircularProgressIndicator(),
-//               );
-//             }
-//           }),
-//     );
-//   }
-// }
-
-// class PhotoList extends StatelessWidget {
-//   const PhotoList({super.key, required this.photos});
-//   final List<Photo> photos;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GridView.builder(
-//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisCount: 2,
-//       ),
-//       itemCount: photos.length,
-//       itemBuilder: (context, index) {
-//         return Text(photos[index].title);
-//       },
-//     );
-//   }
-// }

@@ -1,41 +1,33 @@
 import 'package:equatable/equatable.dart';
 
-class AlbumState extends Equatable{
-  final int? albumId;
-  final int? id;
-  final String? title;
-  final String? url;
-  final String? thumbnailUrl;
+import '../../../domain/entities/photo.dart';
+
+class AlbumState extends Equatable {
+  final bool isLoading;
+  final List<Photo> photos;
+
+  // Deve-se atentar a como o estado é inicializado no construtor
   const AlbumState({
-    required this.albumId,
-    required this.id,
-    required this.title,
-    required this.url,
-    required this.thumbnailUrl,
+    this.isLoading = false,
+    this.photos = const [],
   });
 
+  // Este método é responsável por atribuir dados novos ao estado atual
+  // Caso não seja passado nenhum valor, ele irá manter o valor atual
   AlbumState copyWith({
-    int? albumId,
-    int? id,
-    String? title,
-    String? url,
-    String? thumbnailUrl,
-  }){
+    bool? isLoading,
+    List<Photo>? photos,
+  }) {
     return AlbumState(
-      albumId: albumId,
-      id: id,
-      title: title,
-      url: url,
-      thumbnailUrl: thumbnailUrl,
+      isLoading: isLoading ?? this.isLoading,
+      photos: photos ?? this.photos,
     );
   }
 
+  // Aqui são definidas as variáveis de estado
   @override
-  List<Object?> get props =>[
-    albumId,
-    id,
-    title,
-    url,
-    thumbnailUrl,
-  ];
+  List<Object?> get props => [
+        isLoading,
+        photos,
+      ];
 }
