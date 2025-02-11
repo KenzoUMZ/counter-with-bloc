@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/dio/repository_dio.dart';
 import '../../domain/entities/photo.dart';
+import 'cubit/album_details_cubit.dart';
+import 'cubit/album_details_state.dart';
 
 class AlbumDetails extends StatefulWidget {
   final int photoId;
@@ -15,30 +18,45 @@ class AlbumDetails extends StatefulWidget {
 }
 
 class _AlbumDetailsState extends State<AlbumDetails> {
+  late AlbumDetailsCubit _cubit;
+
+  @override
+  void initState() {
+    _cubit = AlbumDetailsCubit()..getPhoto(id: widget.photoId);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<Photo>(
-          future: fetchSinglePhoto(id: widget.photoId),
-          builder: (context, snapshot) {
-            Photo? photo = snapshot.data;
+      body: BlocBuilder<AlbumDetailsCubit, AlbumDetailsState>(
+          bloc: _cubit,
+          builder: (_, state) {
+            if(state.photo.id == null && state.isLoading == false){
+              return Text('Foto não encotrada');
+            }
+            if(state.isLoading){
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return Center(
               child: Column(
                 children: [
                   Text(
-                    (photo?.id ?? 0).toString(),
+                    (state.photo.id ?? 0).toString(),
                   ),
                   Text(
-                    photo?.thumbnailUrl ?? '',
+                    state.photo.thumbnailUrl ?? '',
                   ),
                   Text(
-                    photo?.title ?? '',
+                    state.photo.title ?? '',
                   ),
                   Text(
-                    photo?.url ?? '',
+                    state.photo.url ?? '',
                   ),
                   Text(
-                    (photo?.albumId ?? 0).toString(),
+                    (state.photo.albumId ?? 0).toString(),
                   ),
                 ],
               ),

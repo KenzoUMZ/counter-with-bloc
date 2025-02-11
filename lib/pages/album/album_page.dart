@@ -41,14 +41,18 @@ class _AlbumPageState extends State<AlbumPage> {
             separatorBuilder: (_, index) => const Gap(10),
             itemBuilder: (_, index) {
               return ListTile(
-                title: Text(state.photos[index].title),
-                subtitle: Text(state.photos[index].url),
+                title: Text(
+                  state.photos[index].title ?? '',
+                ),
+                subtitle: Text(
+                  state.photos[index].url ?? '',
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => AlbumDetails(
-                        photoId: state.photos[index].id,
+                        photoId: state.photos[index].id ?? 0,
                       ),
                     ),
                   );
