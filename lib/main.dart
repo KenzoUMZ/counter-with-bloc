@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/counter/counter_page.dart';
+import 'pages/album/album_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: CounterPage(),
+      home: AlbumPage(),
     );
   }
 }

@@ -24,7 +24,6 @@ class _CounterPage extends State<CounterPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
