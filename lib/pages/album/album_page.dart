@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'album_details.dart';
-import 'dio/repository_dio.dart';
+import '../../data/dio/repository_dio.dart';
 
 class AlbumPage extends StatefulWidget {
   const AlbumPage({super.key});

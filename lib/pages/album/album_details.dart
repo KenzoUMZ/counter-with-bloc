@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dio/repository_dio.dart';
+import '../../data/dio/repository_dio.dart';
 
 class AlbumDetails extends StatefulWidget {
   final int photId;
