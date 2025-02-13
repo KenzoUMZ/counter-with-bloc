@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../data/dio/repository_dio.dart';
-import '../../domain/entities/photo.dart';
 import 'cubit/album_details_cubit.dart';
 import 'cubit/album_details_state.dart';
 
@@ -44,7 +42,7 @@ class _AlbumDetailsState extends State<AlbumDetails> {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:[
+                children: [
                   Text(
                     (state.photo.id ?? 0).toString(),
                     style: GoogleFonts.abel(),
