@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/dio/repository_dio.dart';
 import '../../domain/entities/photo.dart';
@@ -32,31 +33,37 @@ class _AlbumDetailsState extends State<AlbumDetails> {
       body: BlocBuilder<AlbumDetailsCubit, AlbumDetailsState>(
           bloc: _cubit,
           builder: (_, state) {
-            if(state.photo.id == null && state.isLoading == false){
+            if (state.photo.id == null && state.isLoading == false) {
               return Text('Foto não encotrada');
             }
-            if(state.isLoading){
+            if (state.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             return Center(
               child: Column(
-                children: [
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
                   Text(
                     (state.photo.id ?? 0).toString(),
+                    style: GoogleFonts.abel(),
                   ),
                   Text(
                     state.photo.thumbnailUrl ?? '',
+                    style: GoogleFonts.abel(),
                   ),
                   Text(
                     state.photo.title ?? '',
+                    style: GoogleFonts.abel(),
                   ),
                   Text(
                     state.photo.url ?? '',
+                    style: GoogleFonts.abel(),
                   ),
                   Text(
                     (state.photo.albumId ?? 0).toString(),
+                    style: GoogleFonts.abel(),
                   ),
                 ],
               ),
