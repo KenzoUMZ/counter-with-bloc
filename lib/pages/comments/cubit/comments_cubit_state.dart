@@ -13,7 +13,7 @@ class CommentsCubitState extends Equatable {
 
   CommentsCubitState copyWith({
     bool? isLoading,
-    required List<Comments> comments,
+    required List<Comments>? comments,
   }) {
     return CommentsCubitState(
       isLoading: isLoading ?? this.isLoading,
