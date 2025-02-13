@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/Home_page.dart';
+import 'pages/comments/comments_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: CommentsPage(),
     );
   }
 }
