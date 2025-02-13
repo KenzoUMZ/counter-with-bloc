@@ -79,8 +79,26 @@ class UiCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
+      child: Container(
         clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 2,
+              offset: const Offset(2, 3),
+              spreadRadius: 1,
+            ),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 2,
+              offset: const Offset(0, -1),
+              spreadRadius: 1,
+            ),
+          ],
+        ),
         child: InkWell(
             splashColor: Colors.white,
             onTap: () {},
